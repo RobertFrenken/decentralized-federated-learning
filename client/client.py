@@ -26,7 +26,25 @@ class Client:
     Client class.
     """
     inc = itertools.count(start=1)
-
+        
+    """
+    Initialize a client.
+    :param geo_limits: Geographical limits within which clients move, represented as a tuple of tuple,
+    (lat_min, lon_min), (lat_max, lon_max).
+    :param model: An implemented PyTorch Lightning Module.
+    :param datachunk: A PyTorch Dataset. A portion of it will later be reserved for validation.
+    :param testset: A PyTorch Dataset used to test the client's local model.
+    :param local_epochs: Local training epochs per round.
+    :param batch_size: Dataloaders' batch size.
+    :param valid_split: Validation split will be taken from train_ds.
+    :param cpu: Client's CPU component. If not specified, a CPU with random specifications will be generated.
+    :param transmitter: Client's Transmitter component. If not specified, a Transmitter with random specifications
+    will be generated.
+    :param activator: Client activator.
+    :param aggregator: Model aggregator.
+    :param selector: Peer selector.
+    :param json_logger: JSONLogger instance.
+    """
     def __init__(
             self,
             *,
@@ -44,24 +62,7 @@ class Client:
             selector: PeerSelector,
             json_logger: JSONLogger = None
     ):
-        """
-        Initialize a client.
-        :param geo_limits: Geographical limits within which clients move, represented as a tuple of tuple,
-        (lat_min, lon_min), (lat_max, lon_max).
-        :param model: An implemented PyTorch Lightning Module.
-        :param datachunk: A PyTorch Dataset. A portion of it will later be reserved for validation.
-        :param testset: A PyTorch Dataset used to test the client's local model.
-        :param local_epochs: Local training epochs per round.
-        :param batch_size: Dataloaders' batch size.
-        :param valid_split: Validation split will be taken from train_ds.
-        :param cpu: Client's CPU component. If not specified, a CPU with random specifications will be generated.
-        :param transmitter: Client's Transmitter component. If not specified, a Transmitter with random specifications
-        will be generated.
-        :param activator: Client activator.
-        :param aggregator: Model aggregator.
-        :param selector: Peer selector.
-        :param json_logger: JSONLogger instance.
-        """
+        
         self.id_ = next(Client.inc)
 
         self.model = model
