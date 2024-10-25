@@ -3,13 +3,28 @@ import os.path as osp
 
 import dash
 from dash import html, callback, Input, Output
-
+import dash_cytoscape as cyto
 from dashboard.components import (SidebarAIO, HeaderAIO, TopologyAIO, DistributionAIO, ActivityAIO, SelectionAIO,
                                   LocalLossAIO, GlobalLossAIO, LocalAccuracyAIO, GlobalAccuracyAIO, IndicatorAIO)
 from dashboard.utils import process_data
 
 dash.register_page(__name__, path_template='/run/<run_name>', title=lambda run_name: f'Runs | {run_name}')
 
+graph = cyto.Cytoscape(
+        id='cytoscape-elements-basic',
+        layout={'name': 'preset'},
+        style={'width': '100%', 'height': '400px'},
+        elements=[
+            # The nodes elements
+            {'data': {'id': 'one', 'label': 'Node 1'},
+             'position': {'x': 50, 'y': 50}},
+            {'data': {'id': 'two', 'label': 'Node 2'},
+             'position': {'x': 200, 'y': 200}},
+
+            # The edge elements
+            {'data': {'source': 'one', 'target': 'two', 'label': 'Node 1 to 2'}}
+        ]
+    )
 
 def layout(run_name: str = None):
 
@@ -17,7 +32,7 @@ def layout(run_name: str = None):
         HeaderAIO(),
         SidebarAIO(),
         html.Div([
-            TopologyAIO(),
+            graph,
             html.Span([
                 DistributionAIO(),
                 ActivityAIO(),

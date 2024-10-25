@@ -20,6 +20,21 @@ class TopologyAIO(html.Div):
         }
 
     ID = ID
+    cyto.Cytoscape(
+        id='cytoscape-elements-basic',
+        layout={'name': 'preset'},
+        style={'width': '100%', 'height': '400px'},
+        elements=[
+            # The nodes elements
+            {'data': {'id': 'one', 'label': 'Node 1'},
+             'position': {'x': 50, 'y': 50}},
+            {'data': {'id': 'two', 'label': 'Node 2'},
+             'position': {'x': 200, 'y': 200}},
+
+            # The edge elements
+            {'data': {'source': 'one', 'target': 'two', 'label': 'Node 1 to 2'}}
+        ]
+    )
 
     def __init__(self, aio_id: str = None):
         if aio_id is None:
