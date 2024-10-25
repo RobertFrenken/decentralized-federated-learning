@@ -27,7 +27,8 @@ class TableAIO(html.Div):
                 avg_globalacc = np.mean([client['test/accuracy'][-1] for client in data['clients']])
                 std_globalacc = np.std([client['test/accuracy'][-1] for client in data['clients']])
                 total_comm_energy = np.sum([sum([item['energy'] for sublist in client['peers'] for item in sublist]) for client in data['clients']])
-                total_comp_energy = np.sum([client['computation_energy'] * sum(client['activity']) for client in data['clients']])
+                # total_comp_energy = np.sum([client['computation_energy'] * sum(client['activity']) for client in data['clients']])
+                total_comp_energy = np.sum([sum(client['activity']) for client in data['clients']])
 
                 print(file, total_comm_energy)
 
