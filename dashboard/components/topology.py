@@ -195,11 +195,14 @@ class TopologyAIO(html.Div):
         elements = []
         for client in data['clients']:
             id_ = client['id']
-            elements.append({
-                'data': {'id': id_, 'label': f'Client {id_}',  'active': client['activity'][0]},
+            elements.append(
+                # the node elements
+                {
+                'data': {'id': id_, 'label': f'Client {id_}',}, #  'active': client['activity'][0]},
                 'position': {
                     'y': 594 * (client['locations'][0][0] - min_lat) / (max_lat - min_lat),
-                    'x': 1040 * (client['locations'][0][1] - min_lon) / (max_lon - min_lon)},
+                    'x': 1040 * (client['locations'][0][1] - min_lon) / (max_lon - min_lon)
+                    },
                 'grabbable': False
             })
         return elements

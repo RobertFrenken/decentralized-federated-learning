@@ -50,8 +50,10 @@ class SelectionAIO(html.Div):
             peers_count = np.array(list(map(lambda l: len(l), client['peers'])))
 
             rates.append(np.divide(peers_count[neighbors_count != 0], neighbors_count[neighbors_count != 0]))
-
-        rates = np.array(rates)
+            print(rates)
+        print(rates)
+        merged_rates = sum([sublist for sublist in rates])
+        rates = np.array(merged_rates)
         ys['Rate'] = rates.mean(0)
 
         figure = SelectionFigure(x, ys)

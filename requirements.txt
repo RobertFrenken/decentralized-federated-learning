@@ -9,3 +9,6 @@ plotly
 scikit-learn
 pandas
 pytest
+dash_svg
+dash_cytoscape
+dash_daq
